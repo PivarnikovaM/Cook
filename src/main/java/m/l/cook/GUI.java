@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package m.l.cook;
 
-import java.awt.Color;
-import javax.swing.JTextField;
 
 /**
  *
@@ -50,20 +43,7 @@ public class GUI extends javax.swing.JFrame {
 
     }
 
-    /*Runnable Refresh = new Runnable() {
-        public void run() {
-            receptyPanel = new ReceptyJpanel();
-            nakupnyZoznamPanel = new NakupnyZoznamJPanel();
-            jedalnicekPanel = new JedalnicekJPanel();
-
-            receptyJPanel.removeAll();
-            receptyJPanel.setVisible(false);
-            receptyJPanel.add(receptyPanel);
-
-            receptyJPanel.setVisible(true);
-        }
-    };*/
-
+    
     public void aktualizujVsetko() {
 
         receptyPanel = new ReceptyJpanel();

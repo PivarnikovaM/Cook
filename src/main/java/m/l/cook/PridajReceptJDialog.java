@@ -2,48 +2,43 @@ package m.l.cook;
 
 import java.awt.Color;
 import java.awt.Frame;
-import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 public class PridajReceptJDialog extends javax.swing.JDialog {
 
     private Recept recept;
-    
+
     private ReceptDao receptDao = ObjectFactory.INSTANCE.receptDao();
-    
+
     ReceptyJpanel receptyJpanel;
-    
-   
-    //private Runnable Refresh;
-    
-    
+
     public PridajReceptJDialog(Frame parent, boolean modal) {
         super(parent, modal);
         this.receptyJpanel = new ReceptyJpanel();
         //this.parent = parent;
         initComponents();
-        this.getContentPane().setBackground(new Color(149,189,110));
+        this.getContentPane().setBackground(new Color(149, 189, 110));
         this.setLocationRelativeTo(parent);
         postupTextArea.setLineWrap(true);
         postupTextArea.setWrapStyleWord(true);
         ingrediencieTextArea.setLineWrap(true);
         ingrediencieTextArea.setWrapStyleWord(true);
     }
-    
-    public PridajReceptJDialog(Frame parent, boolean modal, Recept recept){
+
+    public PridajReceptJDialog(Frame parent, boolean modal, Recept recept) {
         super(parent, modal);
         this.receptyJpanel = new ReceptyJpanel();
         //this.parent = parent;
         initComponents();
-        this.getContentPane().setBackground(new Color(149,189,110));
+        this.getContentPane().setBackground(new Color(149, 189, 110));
         this.setLocationRelativeTo(parent);
         postupTextArea.setLineWrap(true);
         postupTextArea.setWrapStyleWord(true);
         ingrediencieTextArea.setLineWrap(true);
         ingrediencieTextArea.setWrapStyleWord(true);
-        
+
         //receptDao.pridajRecept(recept, ingrediencieTextArea.getText());
-        
         nazovReceptuTextField.setText(recept.getNazov());
         postupTextArea.setText(recept.getPostup());
         ingrediencieTextArea.setText(recept.ingrediencietoString(receptDao.ingrediencieVRecepte(recept)));
@@ -97,7 +92,7 @@ public class PridajReceptJDialog extends javax.swing.JDialog {
         postupLabel.setText("Pridaj postup receptu");
 
         postupTextArea.setColumns(20);
-        postupTextArea.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        postupTextArea.setFont(new java.awt.Font("Caviar Dreams", 1, 13)); // NOI18N
         postupTextArea.setRows(5);
         jScrollPane2.setViewportView(postupTextArea);
 
@@ -150,13 +145,15 @@ public class PridajReceptJDialog extends javax.swing.JDialog {
         recept = new Recept();
         recept.setNazov(nazovReceptuTextField.getText());
         recept.setPostup(postupTextArea.getText());
-        
+
         receptDao.pridajRecept(recept, ingrediencieTextArea.getText());
-        
-        //SwingUtilities.invokeLater(Refresh);
-        
+
+        GUI parentComponent = (GUI) SwingUtilities.getAncestorOfClass(JFrame.class, this);
+
         setVisible(false);
         dispose();
+        parentComponent.aktualizujVsetko();
+      
     }//GEN-LAST:event_pridajButtonActionPerformed
 
     /**

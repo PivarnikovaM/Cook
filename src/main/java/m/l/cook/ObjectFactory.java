@@ -44,7 +44,7 @@ public enum ObjectFactory {
     
     public NakupnyZoznamDao nakupnyZoznamDao(){
         if (this.nakupnyZoznamDao == null){
-            this.nakupnyZoznamDao = new MysqlNakupnyZoznamDao(jdbcTemplate);
+            this.nakupnyZoznamDao = new MysqlNakupnyZoznamDao();
         }
         return nakupnyZoznamDao;
     }

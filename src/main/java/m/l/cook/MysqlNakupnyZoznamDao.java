@@ -12,8 +12,8 @@ public class MysqlNakupnyZoznamDao implements NakupnyZoznamDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    public MysqlNakupnyZoznamDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public MysqlNakupnyZoznamDao() {
+        this.jdbcTemplate = ObjectFactory.INSTANCE.getJdbcTemplate();
     }
 
     @Override
@@ -34,7 +34,7 @@ public class MysqlNakupnyZoznamDao implements NakupnyZoznamDao {
     @Override
     public void pridaj(NakupnyZoznam nakupnyZoznam) {
         jdbcTemplate.update("INSERT INTO nakupnyzoznam VALUES (?,?,?)",
-               null, nakupnyZoznam.getPolozka().getId(), nakupnyZoznam.isStav());
+               null,nakupnyZoznam.getPolozka().getId(), nakupnyZoznam.isStav());
 
     }
 
