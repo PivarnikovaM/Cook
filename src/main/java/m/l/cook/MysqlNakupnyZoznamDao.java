@@ -34,10 +34,13 @@ public class MysqlNakupnyZoznamDao implements NakupnyZoznamDao {
     @Override
     public void pridaj(NakupnyZoznam nakupnyZoznam) {
         jdbcTemplate.update("INSERT INTO nakupnyzoznam VALUES (?,?,?)",
-               null, nakupnyZoznam.getPolozka().getNazov(), nakupnyZoznam.isStav());
+               null, nakupnyZoznam.getPolozka().getId(), nakupnyZoznam.isStav());
 
     }
 
+    public void vymaz(NakupnyZoznam nakupnyZoznam){
+        jdbcTemplate.update("DELETE FROM nakupnyzoznam WHERE id_ingrediencia = ? ",nakupnyZoznam.getPolozka().getId());
+    }
     private static class NakupnyZoznamRowMapper implements RowMapper<NakupnyZoznam> {
 
         public NakupnyZoznamRowMapper() {

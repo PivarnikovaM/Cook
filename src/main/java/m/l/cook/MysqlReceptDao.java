@@ -1,8 +1,6 @@
 package m.l.cook;
 
 import com.google.common.base.Splitter;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,7 +12,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.jdbc.object.SqlQuery;
 
 public class MysqlReceptDao implements ReceptDao {
 
@@ -34,6 +31,22 @@ public class MysqlReceptDao implements ReceptDao {
         return jdbcTemplate.query(sql, mapper);
 
     }
+
+    public void zmaz(Recept recept) {
+        String sql = "DELETE FROM Cook.vztahy WHERE id_recept = ?";
+        String sql2 = "DELETE FROM Cook.recept \n"
+                + "WHERE Cook.recept.id NOT IN \n"
+                + "     (select id_recept from vztahy);";
+        jdbcTemplate.update("SET FOREIGN_KEY_CHECKS = 0");
+        jdbcTemplate.update("SET SQL_SAFE_UPDATES = 0");
+        jdbcTemplate.update(sql, recept.getId());
+        jdbcTemplate.update(sql2);
+        jdbcTemplate.update("SET FOREIGN_KEY_CHECKS = 1");
+        jdbcTemplate.update("SET SQL_SAFE_UPDATES = 1");
+       
+    }
+    
+  
 
     @Override
     public void pridajRecept(Recept recept, String ingrediencie) {
@@ -62,7 +75,7 @@ public class MysqlReceptDao implements ReceptDao {
 
     }
 
-    public void pridajIngredienciezReceptu(String stringIngrediencie) {
+    private void pridajIngredienciezReceptu(String stringIngrediencie) {
         List<Ingrediencia> ingrediencie = splitIngredienciaString(stringIngrediencie);
         listIngrediencii = new ArrayList<>();
         //prechadzame cez List ingrediencii
@@ -117,11 +130,11 @@ public class MysqlReceptDao implements ReceptDao {
             return false;
         }
     }
-    
+
     public List<String> ingrediencieVRecepte(Recept recept) {
-        String sql = "SELECT I.nazov FROM ingrediencia I JOIN vztahy V JOIN recept R \n" +
-                        "ON R.id = V.id_recept and I.id = V.id_ingrediencia \n" +
-                           "WHERE R.nazov = ?";
+        String sql = "SELECT I.nazov FROM ingrediencia I JOIN vztahy V JOIN recept R \n"
+                + "ON R.id = V.id_recept and I.id = V.id_ingrediencia \n"
+                + "WHERE R.nazov = ?";
         return jdbcTemplate.queryForList(sql, String.class, recept.getNazov());
     }
 
@@ -137,18 +150,18 @@ public class MysqlReceptDao implements ReceptDao {
                     + "ON R.id = V.id_recept and I.id = V.id_ingrediencia \n"
                     + "WHERE I.nazov = ?";
             //tu nam vyhodi nazvy receptov kde sa dana ingrediencia nachadza a nasledne si to ukladame do mapy
-            List<String> strings = (List<String>) jdbcTemplate.queryForList(sql, String.class,ingrediencia.getNazov());
-            if (strings.size() == 0){
+            List<String> strings = (List<String>) jdbcTemplate.queryForList(sql, String.class, ingrediencia.getNazov());
+            if (strings.size() == 0) {
                 return new ArrayList<>();
-            } 
+            }
             for (String string : strings) {
-                if (vyskyty.containsKey(string)){
-                vyskyty.put(string, vyskyty.get(string) + 1);
+                if (vyskyty.containsKey(string)) {
+                    vyskyty.put(string, vyskyty.get(string) + 1);
                 } else {
                     vyskyty.put(string, 1);
                 }
             }
-         
+
         }
         //najdeme maximalnu hodnotu v mape (moze sa tam nachadzat aj viac krat) a nazvy receptov z nej si ulozime do listu
         List<String> nazvyReceptov = new ArrayList<>();
@@ -163,13 +176,12 @@ public class MysqlReceptDao implements ReceptDao {
         for (String string : nazvyReceptov) {
             String sql2 = "SELECT * FROM recept WHERE nazov = ?";
             BeanPropertyRowMapper<Recept> mapper = BeanPropertyRowMapper.newInstance(Recept.class);
-            vrateneRecepty.addAll(jdbcTemplate.query(sql2,mapper,string));
-            
+            vrateneRecepty.addAll(jdbcTemplate.query(sql2, mapper, string));
+
         }
-     
-        
+
         return vrateneRecepty;
-        
+
     }
 
 }

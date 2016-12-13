@@ -33,6 +33,13 @@ public class NakupnyZoznam {
         this.id = id;
         
     }
+
+    @Override
+    public String toString() {
+        return polozka.getNazov();
+    }
+    
+    
     
     
     

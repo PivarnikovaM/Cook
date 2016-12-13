@@ -1,5 +1,6 @@
 package m.l.cook;
 
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 public class NakupnyZoznamTableModel extends AbstractTableModel {
@@ -33,6 +34,10 @@ public class NakupnyZoznamTableModel extends AbstractTableModel {
         }
 
     }
+    
+    public NakupnyZoznam getObjectAt(int rowIndex) {
+            return nakupnyZoznamDao.dajNakupnyZoznam().get(rowIndex);
+        }
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {

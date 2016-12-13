@@ -13,7 +13,7 @@ public class MysqlReceptDaoTest {
     public void testDajRecepty() {
        MysqlReceptDao dao = new MysqlReceptDao();
        List<Recept> recepty = dao.dajRecepty();
-       assertEquals(2, recepty.size());
+       assertEquals(4, recepty.size());
     
     }
     

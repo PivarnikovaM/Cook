@@ -6,14 +6,14 @@ import java.util.List;
 import javax.swing.AbstractListModel;
 
 
-public class ZvolenyReceptIngrediencieListModel extends AbstractListModel {
+public class ReceptyZvolenyReceptIngrediencieListModel extends AbstractListModel {
 
     List<String> ingrediencie = new ArrayList<>();
     IngredienciaDao ingredienciaDao;
     ReceptDao receptDao;
     
 
-    public ZvolenyReceptIngrediencieListModel() {
+    public ReceptyZvolenyReceptIngrediencieListModel() {
         ingredienciaDao = ObjectFactory.INSTANCE.ingredienciaDao();
         receptDao = ObjectFactory.INSTANCE.receptDao();
         ingredienciaDao.dajIngrediencie();

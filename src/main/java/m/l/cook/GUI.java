@@ -14,6 +14,10 @@ import javax.swing.JTextField;
  */
 public class GUI extends javax.swing.JFrame {
 
+    ReceptyJpanel receptyPanel;
+    NakupnyZoznamJPanel nakupnyZoznamPanel;
+    JedalnicekJPanel jedalnicekPanel;
+
     /**
      * Creates new form GUI
      */
@@ -40,9 +44,37 @@ public class GUI extends javax.swing.JFrame {
         receptyJPanel.setVisible(false);
         receptyJPanel.setOpaque(true);
 
-        ReceptyJpanel panel = new ReceptyJpanel();
-        receptyJPanel.add(panel);
+        receptyPanel = new ReceptyJpanel();
+        nakupnyZoznamPanel = new NakupnyZoznamJPanel();
+        jedalnicekPanel = new JedalnicekJPanel();
 
+    }
+
+    /*Runnable Refresh = new Runnable() {
+        public void run() {
+            receptyPanel = new ReceptyJpanel();
+            nakupnyZoznamPanel = new NakupnyZoznamJPanel();
+            jedalnicekPanel = new JedalnicekJPanel();
+
+            receptyJPanel.removeAll();
+            receptyJPanel.setVisible(false);
+            receptyJPanel.add(receptyPanel);
+
+            receptyJPanel.setVisible(true);
+        }
+    };*/
+
+    public void aktualizujVsetko() {
+
+        receptyPanel = new ReceptyJpanel();
+        nakupnyZoznamPanel = new NakupnyZoznamJPanel();
+        jedalnicekPanel = new JedalnicekJPanel();
+
+        receptyJPanel.removeAll();
+        receptyJPanel.setVisible(false);
+        receptyJPanel.add(receptyPanel);
+
+        receptyJPanel.setVisible(true);
     }
 
     /**
@@ -68,13 +100,13 @@ public class GUI extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1000, 667));
         getContentPane().setLayout(null);
 
-        receptyJPanel.setBackground(new java.awt.Color(204, 204, 153));
+        receptyJPanel.setBackground(new java.awt.Color(149, 189, 110));
         getContentPane().add(receptyJPanel);
         receptyJPanel.setBounds(360, 70, 620, 520);
 
         receptyButton.setBackground(new java.awt.Color(255, 255, 255));
         receptyButton.setFont(new java.awt.Font("Caviar Dreams", 1, 30)); // NOI18N
-        receptyButton.setForeground(new java.awt.Color(51, 0, 102));
+        receptyButton.setForeground(new java.awt.Color(132, 160, 104));
         receptyButton.setText("recepty");
         receptyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,18 +114,18 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(receptyButton);
-        receptyButton.setBounds(20, 210, 140, 90);
+        receptyButton.setBounds(30, 190, 140, 90);
 
         cookLabel.setFont(new java.awt.Font("Universe", 1, 70)); // NOI18N
-        cookLabel.setForeground(new java.awt.Color(51, 0, 102));
+        cookLabel.setForeground(new java.awt.Color(132, 160, 104));
         cookLabel.setText("COOK");
         cookLabel.setIconTextGap(0);
         getContentPane().add(cookLabel);
-        cookLabel.setBounds(30, 100, 260, 130);
+        cookLabel.setBounds(40, 0, 260, 130);
 
         nakupnyZoznamButton.setBackground(new java.awt.Color(255, 255, 255));
         nakupnyZoznamButton.setFont(new java.awt.Font("Caviar Dreams", 1, 30)); // NOI18N
-        nakupnyZoznamButton.setForeground(new java.awt.Color(51, 0, 102));
+        nakupnyZoznamButton.setForeground(new java.awt.Color(132, 160, 104));
         nakupnyZoznamButton.setText("nákupný zoznam");
         nakupnyZoznamButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,11 +133,11 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(nakupnyZoznamButton);
-        nakupnyZoznamButton.setBounds(10, 480, 287, 90);
+        nakupnyZoznamButton.setBounds(20, 460, 280, 90);
 
         pridavanieReceptovButton.setBackground(new java.awt.Color(255, 255, 255));
         pridavanieReceptovButton.setFont(new java.awt.Font("Caviar Dreams", 1, 30)); // NOI18N
-        pridavanieReceptovButton.setForeground(new java.awt.Color(51, 0, 102));
+        pridavanieReceptovButton.setForeground(new java.awt.Color(132, 160, 104));
         pridavanieReceptovButton.setText("pridávanie receptov");
         pridavanieReceptovButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,11 +145,11 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(pridavanieReceptovButton);
-        pridavanieReceptovButton.setBounds(20, 300, 330, 90);
+        pridavanieReceptovButton.setBounds(30, 280, 330, 90);
 
         jedalnicekButton.setBackground(new java.awt.Color(255, 255, 255));
         jedalnicekButton.setFont(new java.awt.Font("Caviar Dreams", 1, 30)); // NOI18N
-        jedalnicekButton.setForeground(new java.awt.Color(51, 0, 102));
+        jedalnicekButton.setForeground(new java.awt.Color(132, 160, 104));
         jedalnicekButton.setText("jedálniček");
         jedalnicekButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,9 +157,9 @@ public class GUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jedalnicekButton);
-        jedalnicekButton.setBounds(20, 390, 180, 90);
+        jedalnicekButton.setBounds(30, 370, 180, 90);
 
-        backgroundLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Food-photography-eastern-europe-city-illustrations-banner1-2.jpg"))); // NOI18N
+        backgroundLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jkqdp16z2jmoen2sx9yy1hjiaxmjjm96tvlnymyadqphd2aw6akvks5rsgc3ekjh-f.jpg"))); // NOI18N
         getContentPane().add(backgroundLabel);
         backgroundLabel.setBounds(0, 0, 1060, 670);
 
@@ -135,24 +167,36 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void receptyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptyButtonActionPerformed
-
+        receptyJPanel.setVisible(false);
+        receptyJPanel.remove(nakupnyZoznamPanel);
+        receptyJPanel.remove(jedalnicekPanel);
+        receptyJPanel.add(receptyPanel);
         receptyJPanel.setVisible(true);
 
 
     }//GEN-LAST:event_receptyButtonActionPerformed
 
     private void nakupnyZoznamButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nakupnyZoznamButtonActionPerformed
-        // TODO add your handling code here:
+        receptyJPanel.setVisible(false);
+        receptyJPanel.remove(jedalnicekPanel);
+        receptyJPanel.remove(receptyPanel);
+        receptyJPanel.add(nakupnyZoznamPanel);
+        receptyJPanel.setVisible(true);
     }//GEN-LAST:event_nakupnyZoznamButtonActionPerformed
 
     private void pridavanieReceptovButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pridavanieReceptovButtonActionPerformed
         PridajReceptJDialog pridajReceptJDialog = new PridajReceptJDialog(this, true);
         pridajReceptJDialog.setVisible(true);
 
+        aktualizujVsetko();
     }//GEN-LAST:event_pridavanieReceptovButtonActionPerformed
 
     private void jedalnicekButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jedalnicekButtonActionPerformed
-        // TODO add your handling code here:
+        receptyJPanel.setVisible(false);
+        receptyJPanel.remove(receptyPanel);
+        receptyJPanel.remove(nakupnyZoznamPanel);
+        receptyJPanel.add(jedalnicekPanel);
+        receptyJPanel.setVisible(true);
     }//GEN-LAST:event_jedalnicekButtonActionPerformed
 
     /**

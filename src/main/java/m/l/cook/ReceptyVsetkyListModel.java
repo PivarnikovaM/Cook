@@ -13,11 +13,11 @@ import javax.swing.DefaultListModel;
  *
  * @author martinapivarnikova
  */
-public class ZoznamReceptovListModel extends AbstractListModel{
+public class ReceptyVsetkyListModel extends AbstractListModel{
     
     List<Recept> recepty;
 
-    public ZoznamReceptovListModel() {
+    public ReceptyVsetkyListModel() {
         recepty = ObjectFactory.INSTANCE.receptDao().dajRecepty();
     }
     

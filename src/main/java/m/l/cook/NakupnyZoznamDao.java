@@ -9,6 +9,8 @@ public interface NakupnyZoznamDao {
     
     void pridaj(NakupnyZoznam nakupnyZoznam);
     
+    void vymaz(NakupnyZoznam nakupnyZoznam);
+    
     
     
 }

@@ -12,6 +12,8 @@ public enum ObjectFactory {
     private IngredienciaDao ingredienciaDao;
 
     private NakupnyZoznamDao nakupnyZoznamDao;
+    
+    private JedalnicekDao jedalnicekDao;
 
     public JdbcTemplate getJdbcTemplate() {
 
@@ -45,6 +47,13 @@ public enum ObjectFactory {
             this.nakupnyZoznamDao = new MysqlNakupnyZoznamDao(jdbcTemplate);
         }
         return nakupnyZoznamDao;
+    }
+    
+    public JedalnicekDao jedalnicekDao(){
+        if (this.jedalnicekDao == null) {
+            this.jedalnicekDao = new MysqlJedalnicekDao();
+        }
+        return jedalnicekDao; 
     }
 
 }

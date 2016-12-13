@@ -37,7 +37,7 @@
     <Container class="javax.swing.JPanel" name="receptyJPanel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="99" green="cc" red="cc" type="rgb"/>
+          <Color blue="6e" green="bd" red="95" type="rgb"/>
         </Property>
       </Properties>
       <Constraints>
@@ -57,7 +57,7 @@
           <Font name="Caviar Dreams" size="30" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="66" green="0" red="33" type="rgb"/>
+          <Color blue="68" green="a0" red="84" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="recepty"/>
       </Properties>
@@ -66,7 +66,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="20" y="210" width="140" height="90"/>
+          <AbsoluteConstraints x="30" y="190" width="140" height="90"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -76,14 +76,14 @@
           <Font name="Universe" size="70" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="66" green="0" red="33" type="rgb"/>
+          <Color blue="68" green="a0" red="84" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="COOK"/>
         <Property name="iconTextGap" type="int" value="0"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="30" y="100" width="260" height="130"/>
+          <AbsoluteConstraints x="40" y="0" width="260" height="130"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -96,7 +96,7 @@
           <Font name="Caviar Dreams" size="30" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="66" green="0" red="33" type="rgb"/>
+          <Color blue="68" green="a0" red="84" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="n&#xe1;kupn&#xfd; zoznam"/>
       </Properties>
@@ -105,7 +105,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="10" y="480" width="-1" height="90"/>
+          <AbsoluteConstraints x="20" y="460" width="280" height="90"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -118,7 +118,7 @@
           <Font name="Caviar Dreams" size="30" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="66" green="0" red="33" type="rgb"/>
+          <Color blue="68" green="a0" red="84" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="prid&#xe1;vanie receptov"/>
       </Properties>
@@ -127,7 +127,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="20" y="300" width="330" height="90"/>
+          <AbsoluteConstraints x="30" y="280" width="330" height="90"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -140,7 +140,7 @@
           <Font name="Caviar Dreams" size="30" style="1"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="66" green="0" red="33" type="rgb"/>
+          <Color blue="68" green="a0" red="84" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="jed&#xe1;lni&#x10d;ek"/>
       </Properties>
@@ -149,14 +149,14 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="20" y="390" width="180" height="90"/>
+          <AbsoluteConstraints x="30" y="370" width="180" height="90"/>
         </Constraint>
       </Constraints>
     </Component>
     <Component class="javax.swing.JLabel" name="backgroundLabel">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Food-photography-eastern-europe-city-illustrations-banner1-2.jpg"/>
+          <Image iconType="3" name="/jkqdp16z2jmoen2sx9yy1hjiaxmjjm96tvlnymyadqphd2aw6akvks5rsgc3ekjh-f.jpg"/>
         </Property>
       </Properties>
       <Constraints>

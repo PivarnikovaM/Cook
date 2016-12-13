@@ -10,28 +10,28 @@ import javax.swing.JPanel;
 
 public class ReceptyJpanel extends javax.swing.JPanel {
 
-    private ZoznamReceptovListModel zoznamReceptovListModel;
+    private ReceptyVsetkyListModel zoznamReceptovListModel;
     private ReceptDao receptDao = ObjectFactory.INSTANCE.receptDao();
-    private VyhladajPodlaIngrediencieListModel vyhladajPodlaIngrediencieListModel;
+    private ReceptyVyhladaneListModel vyhladajPodlaIngrediencieListModel;
 
     public ReceptyJpanel() {
-        zoznamReceptovListModel = new ZoznamReceptovListModel();
-        vyhladajPodlaIngrediencieListModel = new VyhladajPodlaIngrediencieListModel();
+        zoznamReceptovListModel = new ReceptyVsetkyListModel();
+        vyhladajPodlaIngrediencieListModel = new ReceptyVyhladaneListModel();
         initComponents();
 
-        setBackground(new Color(204, 204, 153));
+        setBackground(new Color(149, 189, 110));
 
     }
 
-    private void aktualizovatVyhladajPodlaIngrediencieList() {
+    public void aktualizovatVyhladajPodlaIngrediencieList() {
         // ziskaj model
-        VyhladajPodlaIngrediencieListModel model = (VyhladajPodlaIngrediencieListModel) vyhladaneIngrediencieJList.getModel();
+        ReceptyVyhladaneListModel model = (ReceptyVyhladaneListModel) vyhladaneIngrediencieJList.getModel();
         // aktualizuj ho
         model.aktualizovat();
     }
 
     public void aktualizovatZoznamReceptovList() {
-        ZoznamReceptovListModel model = (ZoznamReceptovListModel) vsetkyReceptyJList.getModel();
+        ReceptyVsetkyListModel model = (ReceptyVsetkyListModel) vsetkyReceptyJList.getModel();
         model.aktualizovat();
     }
 
@@ -58,10 +58,11 @@ public class ReceptyJpanel extends javax.swing.JPanel {
         setRequestFocusEnabled(false);
         setSize(new java.awt.Dimension(620, 530));
 
+        vsetkyReceptyJList.setFont(new java.awt.Font("Caviar Dreams", 1, 12)); // NOI18N
         vsetkyReceptyJList.setModel(zoznamReceptovListModel);
         vsetkyReceptyJList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ReceptyJpanel.this.mouseClicked(evt);
+                mouseClickedVsetkyRecepty(evt);
             }
         });
         jScrollPane1.setViewportView(vsetkyReceptyJList);
@@ -72,7 +73,15 @@ public class ReceptyJpanel extends javax.swing.JPanel {
         vyhladajPodlaIngrediencieJLabel.setFont(new java.awt.Font("Caviar Dreams", 0, 24)); // NOI18N
         vyhladajPodlaIngrediencieJLabel.setText("Vyhľadaj recept podľa ingrediencií");
 
+        vyhladajPodlaIngrediencieTextField.setFont(new java.awt.Font("Caviar Dreams", 1, 13)); // NOI18N
+
+        vyhladaneIngrediencieJList.setFont(new java.awt.Font("Caviar Dreams", 1, 12)); // NOI18N
         vyhladaneIngrediencieJList.setModel(vyhladajPodlaIngrediencieListModel);
+        vyhladaneIngrediencieJList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mouseClickedReceptyPodlaIngrediencii(evt);
+            }
+        });
         jScrollPane2.setViewportView(vyhladaneIngrediencieJList);
 
         vyhladajButton.setFont(new java.awt.Font("Caviar Dreams", 1, 13)); // NOI18N
@@ -121,12 +130,13 @@ public class ReceptyJpanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(vsetkyReceptyJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClicked
+
+    private void mouseClickedVsetkyRecepty(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClickedVsetkyRecepty
         JList theList = (JList) evt.getSource();
         if (evt.getClickCount() == 2) {
             int index = theList.locationToIndex(evt.getPoint());
@@ -138,13 +148,13 @@ public class ReceptyJpanel extends javax.swing.JPanel {
                     zvolenyRecept = recept;
                 }
             }
-            ReceptJDialog receptJDialog = new ReceptJDialog(zvolenyRecept, (JFrame) this.getRootPane().getParent(), true);
+            ReceptyZvolenyReceptJDialog receptJDialog = new ReceptyZvolenyReceptJDialog(zvolenyRecept, (JFrame) this.getRootPane().getParent(), true);
             receptJDialog.setVisible(true);
 
         }
 
 
-    }//GEN-LAST:event_mouseClicked
+    }//GEN-LAST:event_mouseClickedVsetkyRecepty
 
     private void vyhladajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vyhladajButtonActionPerformed
         vyhladajPodlaIngrediencieListModel.vrateneRecepty(receptDao.vyhladajReceptyPodlaIngrediencii(vyhladajPodlaIngrediencieTextField.getText()));
@@ -152,6 +162,23 @@ public class ReceptyJpanel extends javax.swing.JPanel {
         aktualizovatVyhladajPodlaIngrediencieList();
 // vyhladajPodlaIngrediencieListModel = new VyhladajPodlaIngrediencieListModel(vyhladajPodlaIngrediencieTextField.getText());
     }//GEN-LAST:event_vyhladajButtonActionPerformed
+
+    private void mouseClickedReceptyPodlaIngrediencii(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClickedReceptyPodlaIngrediencii
+        JList theList = (JList) evt.getSource();
+        if (evt.getClickCount() == 2) {
+            int index = theList.locationToIndex(evt.getPoint());
+            String string = (String) vyhladajPodlaIngrediencieListModel.getElementAt(index);
+            List<Recept> recepty = receptDao.dajRecepty();
+            Recept zvolenyRecept = new Recept();
+            for (Recept recept : recepty) {
+                if (recept.getNazov().equals(string)) {
+                    zvolenyRecept = recept;
+                }
+            }
+            ReceptyZvolenyReceptJDialog receptJDialog = new ReceptyZvolenyReceptJDialog(zvolenyRecept, (JFrame) this.getRootPane().getParent(), true);
+            receptJDialog.setVisible(true);
+        }
+    }//GEN-LAST:event_mouseClickedReceptyPodlaIngrediencii
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

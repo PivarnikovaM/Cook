@@ -46,6 +46,24 @@ public class Recept {
         this.ingrediencie = ingrediencie;
     }
 
+    @Override
+    public String toString() {
+        return nazov;
+    }
+    
+    public String ingrediencietoString(List<String> ingrediencieUprava){
+        StringBuilder sb = new StringBuilder();
+        for (String nazov : ingrediencieUprava) {
+            if(!nazov.equals(ingrediencieUprava.get(ingrediencieUprava.size()-1))){
+            sb.append(nazov + ", ");
+            } else {
+                sb.append(nazov);
+            }
+            
+        }
+        return sb.toString();
+    }
+
     
     
     

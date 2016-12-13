@@ -8,44 +8,38 @@ package m.l.cook;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Panel;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
  *
  * @author martinapivarnikova
  */
-public class ReceptJDialog extends javax.swing.JDialog {
+public class ReceptyZvolenyReceptJDialog extends javax.swing.JDialog {
 
     private Recept recept;
-    ZvolenyReceptIngrediencieListModel zvolenyReceptIngrediencieListModel;
-    private IngredienciaDao ingredienciaDao;
+    ReceptyZvolenyReceptIngrediencieListModel zvolenyReceptIngrediencieListModel;
+    private ReceptDao receptDao;
+    Frame parent;
+
     /**
      * Creates new form ReceptJDialog
      */
-    public ReceptJDialog(Recept recept, Frame parent, boolean modal) {
+    public ReceptyZvolenyReceptJDialog(Recept recept, Frame parent, boolean modal) {
         super(parent, modal);
-        this.getContentPane().setBackground(new Color(204, 204, 153));
-        this.recept=recept;
-        zvolenyReceptIngrediencieListModel = new ZvolenyReceptIngrediencieListModel();
+        this.parent = parent;
+        this.getContentPane().setBackground(new Color(149, 189, 110));
+        receptDao = ObjectFactory.INSTANCE.receptDao();
+        this.recept = recept;
+        zvolenyReceptIngrediencieListModel = new ReceptyZvolenyReceptIngrediencieListModel();
         zvolenyReceptIngrediencieListModel.nastavIngrediencievDanomRecepte(recept);
         initComponents();
         postupTextArea.setText(recept.getPostup());
         this.setLocationRelativeTo(parent);
         postupTextArea.setWrapStyleWord(true);
         postupTextArea.setLineWrap(true);
-        
+
     }
-    
-    public ReceptJDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        recept = new Recept();
-        zvolenyReceptIngrediencieListModel = new ZvolenyReceptIngrediencieListModel();
-        zvolenyReceptIngrediencieListModel.nastavIngrediencievDanomRecepte(recept);
-        
-        
-        initComponents();
-    }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -64,15 +58,18 @@ public class ReceptJDialog extends javax.swing.JDialog {
         nazovReceptuLabel = new javax.swing.JLabel();
         ingrediencieJLabel = new javax.swing.JLabel();
         postupJLabel = new javax.swing.JLabel();
+        upravReceptJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 153));
 
+        ingrediencieJList.setFont(new java.awt.Font("Caviar Dreams", 1, 12)); // NOI18N
         ingrediencieJList.setModel(zvolenyReceptIngrediencieListModel);
         jScrollPane1.setViewportView(ingrediencieJList);
 
         postupTextArea.setEditable(false);
         postupTextArea.setColumns(20);
+        postupTextArea.setFont(new java.awt.Font("Caviar Dreams", 1, 13)); // NOI18N
         postupTextArea.setRows(5);
         jScrollPane2.setViewportView(postupTextArea);
 
@@ -93,6 +90,14 @@ public class ReceptJDialog extends javax.swing.JDialog {
         postupJLabel.setFont(new java.awt.Font("Caviar Dreams", 1, 18)); // NOI18N
         postupJLabel.setText("Postup receptu:");
 
+        upravReceptJButton.setFont(new java.awt.Font("Caviar Dreams", 1, 13)); // NOI18N
+        upravReceptJButton.setText("Uprav recept");
+        upravReceptJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                upravReceptJButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,22 +106,23 @@ public class ReceptJDialog extends javax.swing.JDialog {
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(377, 377, 377)
-                                .addComponent(closeJButton)))
-                        .addContainerGap(28, Short.MAX_VALUE))
+                        .addComponent(ingrediencieJLabel)
+                        .addGap(66, 66, 66)
+                        .addComponent(postupJLabel)
+                        .addGap(0, 363, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(nazovReceptuLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(ingrediencieJLabel)
-                                .addGap(66, 66, 66)
-                                .addComponent(postupJLabel))
-                            .addComponent(nazovReceptuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(upravReceptJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(48, 48, 48)
+                                        .addComponent(closeJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(28, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,9 +136,11 @@ public class ReceptJDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(closeJButton))
+                        .addComponent(jScrollPane2)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(closeJButton)
+                            .addComponent(upravReceptJButton)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23))
         );
@@ -145,47 +153,17 @@ public class ReceptJDialog extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_closeJButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReceptJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReceptJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReceptJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReceptJDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void upravReceptJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upravReceptJButtonActionPerformed
+         this.dispose();
+        PridajReceptJDialog pridajReceptJDialog = new PridajReceptJDialog(parent, true, recept);
+        receptDao.zmaz(recept);
+        pridajReceptJDialog.setVisible(true);
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ReceptJDialog dialog = new ReceptJDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+       
+
+
+    }//GEN-LAST:event_upravReceptJButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeJButton;
@@ -196,5 +174,6 @@ public class ReceptJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel nazovReceptuLabel;
     private javax.swing.JLabel postupJLabel;
     private javax.swing.JTextArea postupTextArea;
+    private javax.swing.JButton upravReceptJButton;
     // End of variables declaration//GEN-END:variables
 }

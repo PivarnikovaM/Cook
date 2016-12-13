@@ -8,13 +8,13 @@ import m.l.cook.MysqlReceptDao;
 import m.l.cook.ObjectFactory;
 import m.l.cook.Recept;
 
-public class VyhladajPodlaIngrediencieListModel extends AbstractListModel {
+public class ReceptyVyhladaneListModel extends AbstractListModel {
     
       List<Recept> recepty = new ArrayList<>();
       ReceptDao receptDao;
       
 
-    public VyhladajPodlaIngrediencieListModel() {
+    public ReceptyVyhladaneListModel() {
         receptDao = ObjectFactory.INSTANCE.receptDao();
         
         
