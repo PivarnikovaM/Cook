@@ -1,23 +1,32 @@
 package m.l.cook;
 
 import com.google.common.base.Splitter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 public class MysqlReceptDao implements ReceptDao {
 
     private JdbcTemplate jdbcTemplate;
 
     private List<Ingrediencia> listIngrediencii;
+    
+   // private Long idZmazaneho;
 
     public MysqlReceptDao() {
         this.jdbcTemplate = ObjectFactory.INSTANCE.getJdbcTemplate();
@@ -33,17 +42,30 @@ public class MysqlReceptDao implements ReceptDao {
     }
 
     public void zmaz(Recept recept) {
+        
+        Connection c = null;
+        Statement s = null;
+        try {
+            c = DriverManager.getConnection("jdbc:mysql://localhost/cook?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8","cook", "cook");
+            s = c.createStatement();
+            s.addBatch("SET FOREIGN_KEY_CHECKS = 0");
+            s.addBatch("SET SQL_SAFE_UPDATES = 0");
+            s.executeBatch();
+        } catch (SQLException ex) {
+            Logger.getLogger(MysqlReceptDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        
+        
         String sql = "DELETE FROM Cook.vztahy WHERE id_recept = ?";
         String sql2 = "DELETE FROM Cook.recept \n"
                 + "WHERE Cook.recept.id NOT IN \n"
                 + "     (select id_recept from vztahy);";
-        jdbcTemplate.update("SET FOREIGN_KEY_CHECKS = 0");
-        jdbcTemplate.update("SET SQL_SAFE_UPDATES = 0");
+        //idZmazaneho = recept.getId();
+       
         jdbcTemplate.update(sql, recept.getId());
         jdbcTemplate.update(sql2);
-        jdbcTemplate.update("SET FOREIGN_KEY_CHECKS = 1");
-        jdbcTemplate.update("SET SQL_SAFE_UPDATES = 1");
-       
+         
     }
     
   
@@ -70,11 +92,14 @@ public class MysqlReceptDao implements ReceptDao {
         for (Ingrediencia listIngrediencia : listIngrediencii) {
             jdbcTemplate.update("INSERT INTO cook.vztahy VALUES (?,?)", recept.getId(), listIngrediencia.getId());
         }
-
+    
+        //jdbcTemplate.update("UPDATE Cook.jedalnicek SET id_recept = ? where id_recept = ?",id.longValue(),idZmazaneho);
         recept.setIngrediencie(listIngrediencii);
 
     }
 
+    
+    
     private void pridajIngredienciezReceptu(String stringIngrediencie) {
         List<Ingrediencia> ingrediencie = splitIngredienciaString(stringIngrediencie);
         listIngrediencii = new ArrayList<>();
@@ -82,7 +107,6 @@ public class MysqlReceptDao implements ReceptDao {
         for (Ingrediencia ingrediencia : ingrediencie) {
 
             //ked sa ingrediencia nenachadza v databaze
-            //String queryForObject = (String) (jdbcTemplate.queryForObject("SELECT nazov FROM cook.ingrediencia WHERE nazov = (?)", String.class, ingrediencia.getNazov()));
             if (!exists(ingrediencia)) {
                 MapSqlParameterSource parameters = new MapSqlParameterSource()
                         .addValue("nazov", ingrediencia.getNazov());
@@ -106,6 +130,7 @@ public class MysqlReceptDao implements ReceptDao {
 
     }
 
+    
     public List<Ingrediencia> splitIngredienciaString(String stringIngrediencie) {
         List<Ingrediencia> ingrediencie = new ArrayList<>();
         Iterable<String> split = Splitter.on(',').trimResults().split(stringIngrediencie);
@@ -121,6 +146,7 @@ public class MysqlReceptDao implements ReceptDao {
 
     }
 
+    
     private boolean exists(Ingrediencia ingrediencia) {
         String query = "SELECT nazov FROM cook.ingrediencia WHERE nazov = ?";
         try {
@@ -131,6 +157,7 @@ public class MysqlReceptDao implements ReceptDao {
         }
     }
 
+    
     public List<String> ingrediencieVRecepte(Recept recept) {
         String sql = "SELECT I.nazov FROM ingrediencia I JOIN vztahy V JOIN recept R \n"
                 + "ON R.id = V.id_recept and I.id = V.id_ingrediencia \n"
@@ -138,6 +165,7 @@ public class MysqlReceptDao implements ReceptDao {
         return jdbcTemplate.queryForList(sql, String.class, recept.getNazov());
     }
 
+    
     public List<Recept> vyhladajReceptyPodlaIngrediencii(String ingrediencie) {
         //splitnutie ingrediencii zo stringu
         List<Ingrediencia> vsetkyIngrediencie = splitIngredienciaString(ingrediencie);
@@ -151,7 +179,7 @@ public class MysqlReceptDao implements ReceptDao {
                     + "WHERE I.nazov = ?";
             //tu nam vyhodi nazvy receptov kde sa dana ingrediencia nachadza a nasledne si to ukladame do mapy
             List<String> strings = (List<String>) jdbcTemplate.queryForList(sql, String.class, ingrediencia.getNazov());
-            if (strings.size() == 0) {
+            if (strings.isEmpty()) {
                 return new ArrayList<>();
             }
             for (String string : strings) {

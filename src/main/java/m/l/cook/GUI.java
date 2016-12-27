@@ -144,6 +144,7 @@ public class GUI extends javax.swing.JFrame {
         backgroundLabel.setBounds(0, 0, 1060, 670);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void receptyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receptyButtonActionPerformed

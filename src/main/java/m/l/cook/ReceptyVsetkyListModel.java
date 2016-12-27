@@ -25,6 +25,10 @@ public class ReceptyVsetkyListModel extends AbstractListModel{
     public int getSize() {
         return recepty.size();
     }
+    
+    public Recept getObjectAt(int index){
+        return recepty.get(index);
+    }
 
     @Override
     public Object getElementAt(int index) {

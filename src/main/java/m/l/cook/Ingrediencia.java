@@ -10,7 +10,6 @@ class Ingrediencia {
     private String nazov;
     
  
-    
     public String getNazov() {
         return nazov;
     }

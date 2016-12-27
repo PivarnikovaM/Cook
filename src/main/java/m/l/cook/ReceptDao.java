@@ -14,5 +14,7 @@ public interface ReceptDao {
     List<Recept> vyhladajReceptyPodlaIngrediencii(String ingrediencie);
     
     List<String> ingrediencieVRecepte(Recept recept);
+    
+     public List<Ingrediencia> splitIngredienciaString(String stringIngrediencie);
    
 }

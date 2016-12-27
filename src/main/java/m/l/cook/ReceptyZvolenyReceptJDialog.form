@@ -140,7 +140,7 @@
     <Component class="javax.swing.JLabel" name="nazovReceptuLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Caviar Dreams" size="36" style="1"/>
+          <Font name="Caviar Dreams" size="30" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="recept.getNazov()" type="code"/>

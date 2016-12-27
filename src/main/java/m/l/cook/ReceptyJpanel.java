@@ -139,15 +139,11 @@ public class ReceptyJpanel extends javax.swing.JPanel {
     private void mouseClickedVsetkyRecepty(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClickedVsetkyRecepty
         JList theList = (JList) evt.getSource();
         if (evt.getClickCount() == 2) {
+            
             int index = theList.locationToIndex(evt.getPoint());
-            String string = (String) zoznamReceptovListModel.getElementAt(index);
-            List<Recept> recepty = receptDao.dajRecepty();
-            Recept zvolenyRecept = new Recept();
-            for (Recept recept : recepty) {
-                if (recept.getNazov().equals(string)) {
-                    zvolenyRecept = recept;
-                }
-            }
+ 
+            Recept zvolenyRecept = zoznamReceptovListModel.getObjectAt(index);
+         
             ReceptyZvolenyReceptJDialog receptJDialog = new ReceptyZvolenyReceptJDialog(zvolenyRecept, (JFrame) this.getRootPane().getParent(), true);
             receptJDialog.setVisible(true);
 
@@ -159,8 +155,7 @@ public class ReceptyJpanel extends javax.swing.JPanel {
     private void vyhladajButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vyhladajButtonActionPerformed
         vyhladajPodlaIngrediencieListModel.vrateneRecepty(receptDao.vyhladajReceptyPodlaIngrediencii(vyhladajPodlaIngrediencieTextField.getText()));
 
-        aktualizovatVyhladajPodlaIngrediencieList();
-// vyhladajPodlaIngrediencieListModel = new VyhladajPodlaIngrediencieListModel(vyhladajPodlaIngrediencieTextField.getText());
+        aktualizovatVyhladajPodlaIngrediencieList();   
     }//GEN-LAST:event_vyhladajButtonActionPerformed
 
     private void mouseClickedReceptyPodlaIngrediencii(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClickedReceptyPodlaIngrediencii

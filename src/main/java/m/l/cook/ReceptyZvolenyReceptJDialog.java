@@ -81,7 +81,7 @@ public class ReceptyZvolenyReceptJDialog extends javax.swing.JDialog {
             }
         });
 
-        nazovReceptuLabel.setFont(new java.awt.Font("Caviar Dreams", 1, 36)); // NOI18N
+        nazovReceptuLabel.setFont(new java.awt.Font("Caviar Dreams", 1, 30)); // NOI18N
         nazovReceptuLabel.setText(recept.getNazov());
 
         ingrediencieJLabel.setFont(new java.awt.Font("Caviar Dreams", 1, 18)); // NOI18N
