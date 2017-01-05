@@ -96,7 +96,7 @@ public class JedalnicekUpravaJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ulozButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ulozButtonActionPerformed
-        jedalnicek.setRecept((Recept) receptyComboBoxModel.getSelectedItem());
+        jedalnicek.setRecept((Recept) receptyComboBox.getSelectedItem());
 
         jedalnicekDao.saveOrUpdate(jedalnicek);
 
